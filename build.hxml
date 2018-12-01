@@ -1,0 +1,14 @@
+-cp src
+-D eval-stack
+-main Tests
+-lib utest
+--interp
+
+# -js export/test.js
+# -cmd node export/test.js
+# -lib hxnodejs
+
+# -cpp export/cpp
+# -cmd export\cpp\Tests.exe
+
+# -java export/java
