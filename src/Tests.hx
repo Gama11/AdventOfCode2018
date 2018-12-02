@@ -23,4 +23,9 @@ class Tests implements ITest {
 		Assert.equals(14, Day01.findFirstDuplicateFrequency("+7, +7, -2, -7, -4"));
 		Assert.equals(55250, Day01.findFirstDuplicateFrequency(getData("day01")));
 	}
+
+	function testDay02() {
+		Assert.equals(12, Day02.calculateChecksum(getData("day02-0")));
+		Assert.equals(3952, Day02.calculateChecksum(getData("day02-1")));
+	}
 }
