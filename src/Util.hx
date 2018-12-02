@@ -3,6 +3,18 @@ class Util {
 		var r = a % b;
 		return r < 0 ? r + b : r;
 	}
+
+    public static function tuples<T>(a:Array<T>):Array<{a:T, b:T}> {
+        var result = [];
+        for (e1 in a) {
+            for (e2 in a) {
+                if (e1 != e2) {
+                    result.push({a: e1, b: e2});
+                }
+            }
+        }
+        return result;
+    }
 }
 
 class ERegUtil {

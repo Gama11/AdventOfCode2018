@@ -27,5 +27,8 @@ class Tests implements ITest {
 	function testDay02() {
 		Assert.equals(12, Day02.calculateChecksum(getData("day02-0")));
 		Assert.equals(3952, Day02.calculateChecksum(getData("day02-1")));
+
+		Assert.equals("fgij", Day02.findCommonLetters(getData("day02-2")));
+		Assert.equals("vtnikorkulbfejvyznqgdxpaw", Day02.findCommonLetters(getData("day02-1")));
 	}
 }
