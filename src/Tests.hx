@@ -31,4 +31,9 @@ class Tests implements ITest {
 		Assert.equals("fgij", Day02.findCommonLetters(getData("day02-2")));
 		Assert.equals("vtnikorkulbfejvyznqgdxpaw", Day02.findCommonLetters(getData("day02-1")));
 	}
+
+	function testDay03() {
+		Assert.equals(4, Day03.countInchesWithOverlaps(getData("day03-0")));
+		Assert.equals(112418, Day03.countInchesWithOverlaps(getData("day03-1")));
+	}
 }
