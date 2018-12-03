@@ -35,5 +35,8 @@ class Tests implements ITest {
 	function testDay03() {
 		Assert.equals(4, Day03.countInchesWithOverlaps(getData("day03-0")));
 		Assert.equals(112418, Day03.countInchesWithOverlaps(getData("day03-1")));
+
+		Assert.equals(3, Day03.findNonOverlappingClaim(getData("day03-0")));
+		Assert.equals(560, Day03.findNonOverlappingClaim(getData("day03-1")));
 	}
 }
