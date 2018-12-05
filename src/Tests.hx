@@ -50,7 +50,10 @@ class Tests implements ITest {
 	}
 
 	function testDay05() {
-		Assert.equals("dabCBAcaDA", Day05.reduce("dabAcCaCBAcCcaDA"));
-		Assert.equals(10972, Day05.reduce(getData("day05")).length);
+		Assert.equals(10, Day05.reduce("dabAcCaCBAcCcaDA"));
+		Assert.equals(10972, Day05.reduce(getData("day05")));
+
+		Assert.equals(4, Day05.findBestReduction("dabAcCaCBAcCcaDA"));
+		Assert.equals(5278, Day05.findBestReduction(getData("day05")));
 	}
 }
