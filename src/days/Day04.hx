@@ -23,8 +23,7 @@ class Day04 {
 		});
 	}
 
-	public static function findSleepiestMinuteOfSleepiestGuard(input:String) {
-		var records = parseRecords(input);
+	static function processRecords(records:Array<Record>):Array<SleepData> {
 		records.sort((r1, r2) -> {
 			var t1 = r1.date.getTime();
 			var t2 = r2.date.getTime();
@@ -40,7 +39,6 @@ class Day04 {
 		var currentGuard = null;
 		var sleepingSince = null;
 		var sleepData = new Map<Int, SleepData>();
-		var sleepiest:SleepData = null;
 
 		for (record in records) {
 			switch (record.event) {
@@ -68,23 +66,44 @@ class Day04 {
 					}
 					data.minutes += end - start;
 					sleepData[currentGuard] = data;
-
-					if (sleepiest == null || sleepiest.minutes < data.minutes) {
-						sleepiest = data;
-					}
 			}
 		}
 
-		var sleepiestMinute = 0;
-		var max = 0;
-		for (i in 0...sleepiest.perMinute.length) {
-			var current = sleepiest.perMinute[i];
-			if (current > max) {
-				max = current;
-				sleepiestMinute = i;
+		return sleepData.array();
+	}
+
+	static function findSleepiestMinute(sleepData:SleepData):{minute:Int, amount:Int} {
+		var minute = 0;
+		var maxAmount = 0;
+		for (i in 0...sleepData.perMinute.length) {
+			var amount = sleepData.perMinute[i];
+			if (amount > maxAmount) {
+				maxAmount = amount;
+				minute = i;
 			}
 		}
-		return sleepiestMinute * sleepiest.guard;
+		return {minute: minute, amount: maxAmount};
+	}
+
+	public static function findSleepiestMinuteOfSleepiestGuard(input:String):Int {
+		var sleepData = processRecords(parseRecords(input));
+		sleepData.sort((d1, d2) -> Reflect.compare(d2.minutes, d1.minutes));
+		var sleepiestGuard = sleepData[0];
+		return findSleepiestMinute(sleepiestGuard).minute * sleepiestGuard.guard;
+	}
+
+	public static function findSleepiestMinuteOverall(input:String):Int {
+		var sleepData = processRecords(parseRecords(input));
+		var sleepiestMinute = {minute: 0, amount: 0};
+		var best = null;
+		for (data in sleepData) {
+			var current = findSleepiestMinute(data);
+			if (current.amount > sleepiestMinute.amount) {
+				sleepiestMinute = current;
+				best = data;
+			}
+		}
+		return sleepiestMinute.minute * best.guard;
 	}
 }
 

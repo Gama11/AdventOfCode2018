@@ -44,5 +44,8 @@ class Tests implements ITest {
 	function testDay04() {
 		Assert.equals(240, Day04.findSleepiestMinuteOfSleepiestGuard(getData("day04-0")));
 		Assert.equals(74743, Day04.findSleepiestMinuteOfSleepiestGuard(getData("day04-1")));
+
+		Assert.equals(4455, Day04.findSleepiestMinuteOverall(getData("day04-0")));
+		Assert.equals(132484, Day04.findSleepiestMinuteOverall(getData("day04-1")));
 	}
 }
