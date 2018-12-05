@@ -17,7 +17,7 @@ class Day03 {
 	}
 
 	public static function countInchesWithOverlaps(input:String) {
-		var grid = [for (_ in 0...1000)[for (_ in 0...1000) 0]];
+		var grid = [for (_ in 0...1000) [for (_ in 0...1000) 0]];
 		for (claim in parseClaims(input)) {
 			for (x in 0...claim.width) {
 				for (y in 0...claim.height) {

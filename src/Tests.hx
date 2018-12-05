@@ -32,11 +32,17 @@ class Tests implements ITest {
 		Assert.equals("vtnikorkulbfejvyznqgdxpaw", Day02.findCommonLetters(getData("day02-1")));
 	}
 
+	@Ignored
 	function testDay03() {
 		Assert.equals(4, Day03.countInchesWithOverlaps(getData("day03-0")));
 		Assert.equals(112418, Day03.countInchesWithOverlaps(getData("day03-1")));
 
 		Assert.equals(3, Day03.findNonOverlappingClaim(getData("day03-0")));
 		Assert.equals(560, Day03.findNonOverlappingClaim(getData("day03-1")));
+	}
+
+	function testDay04() {
+		Assert.equals(240, Day04.findSleepiestMinuteOfSleepiestGuard(getData("day04-0")));
+		Assert.equals(74743, Day04.findSleepiestMinuteOfSleepiestGuard(getData("day04-1")));
 	}
 }

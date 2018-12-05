@@ -7,6 +7,17 @@
 			"request": "launch",
 			"cwd": "${workspaceRoot}",
 			"hxml": "${workspaceRoot}/build.hxml"
+		},
+		{
+			"name": "JavaScript",
+			"type": "node",
+			"request": "launch",
+			"program": "${workspaceRoot}/export/test.js",
+			"preLaunchTask": "haxe: active configuration",
+			"sourceMaps": true,
+			"outFiles": [
+				"${workspaceRoot}/export/*.js"
+			]
 		}
 	]
 }
