@@ -48,4 +48,9 @@ class Tests implements ITest {
 		Assert.equals(4455, Day04.findSleepiestMinuteOverall(getData("day04-0")));
 		Assert.equals(132484, Day04.findSleepiestMinuteOverall(getData("day04-1")));
 	}
+
+	function testDay05() {
+		Assert.equals("dabCBAcaDA", Day05.reduce("dabAcCaCBAcCcaDA"));
+		Assert.equals(10972, Day05.reduce(getData("day05")).length);
+	}
 }
