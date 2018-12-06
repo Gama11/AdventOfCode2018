@@ -56,4 +56,9 @@ class Tests implements ITest {
 		Assert.equals(4, Day05.findBestReduction("dabAcCaCBAcCcaDA"));
 		Assert.equals(5278, Day05.findBestReduction(getData("day05")));
 	}
+
+	function testDay06() {
+		Assert.equals(17, Day06.findLargestFiniteArea(getData("day06-0")));
+		Assert.equals(5035, Day06.findLargestFiniteArea(getData("day06-1")));
+	}
 }
