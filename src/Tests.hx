@@ -60,5 +60,8 @@ class Tests implements ITest {
 	function testDay06() {
 		Assert.equals(17, Day06.findLargestFiniteArea(getData("day06-0")));
 		Assert.equals(5035, Day06.findLargestFiniteArea(getData("day06-1")));
+
+		Assert.equals(16, Day06.countPointsWithMaxDistance(getData("day06-0"), 32));
+		Assert.equals(35294, Day06.countPointsWithMaxDistance(getData("day06-1"), 10000));
 	}
 }

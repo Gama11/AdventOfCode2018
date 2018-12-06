@@ -10,9 +10,7 @@ class Day06 {
 		});
 	}
 
-	public static function findLargestFiniteArea(input:String):Int {
-		var points = parsePoints(input);
-
+	static function findGridSize(points:Array<Point>):Point {
 		var maxX = 0;
 		var maxY = 0;
 		for (point in points) {
@@ -23,10 +21,16 @@ class Day06 {
 				maxY = point.y;
 			}
 		}
+		return new Point(maxX, maxY);
+	}
+
+	public static function findLargestFiniteArea(input:String):Int {
+		var points = parsePoints(input);
+		var gridSize = findGridSize(points);
 		
 		var areas = [for (point in points) point => 0];
-		for (x in 0...maxX + 1) {
-			for (y in 0...maxY + 1) {
+		for (x in 0...gridSize.x + 1) {
+			for (y in 0...gridSize.y + 1) {
 				var p = new Point(x, y);
 				var bestPoint = null;
 				var bestDistance = null;
@@ -46,7 +50,7 @@ class Day06 {
 					continue;
 				}
 
-				if (p.x == 0 || p.x == maxX || p.y == 0 || p.y == maxY) {
+				if (p.x == 0 || p.x == gridSize.x || p.y == 0 || p.y == gridSize.y) {
 					areas[bestPoint] = null;
 				}
 				if (areas[bestPoint] != null) {
@@ -58,5 +62,22 @@ class Day06 {
 		var sizes = areas.array().filter(i -> i != null);
 		sizes.sort(Reflect.compare);
 		return sizes[sizes.length - 1];
+	}
+
+	public static function countPointsWithMaxDistance(input:String, maxDistance:Int):Int {
+		var points = parsePoints(input);
+		var gridSize = findGridSize(points);
+
+		var regionSize = 0;
+		for (x in 0...gridSize.x + 1) {
+			for (y in 0...gridSize.y + 1) {
+				var point = new Point(x, y);
+				var distanceSum = points.map(p -> p.distanceTo(point)).fold((a, b) -> a + b, 0);
+				if (distanceSum < maxDistance) {
+					regionSize++;
+				}
+			}
+		}
+		return regionSize;
 	}
 }
