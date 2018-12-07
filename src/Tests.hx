@@ -49,6 +49,7 @@ class Tests implements ITest {
 		Assert.equals(132484, Day04.findSleepiestMinuteOverall(getData("day04-1")));
 	}
 
+	@Ignored
 	function testDay05() {
 		Assert.equals(10, Day05.reduce("dabAcCaCBAcCcaDA"));
 		Assert.equals(10972, Day05.reduce(getData("day05")));
@@ -63,5 +64,10 @@ class Tests implements ITest {
 
 		Assert.equals(16, Day06.countPointsWithMaxDistance(getData("day06-0"), 32));
 		Assert.equals(35294, Day06.countPointsWithMaxDistance(getData("day06-1"), 10000));
+	}
+
+	function testDay07() {
+		Assert.equals("CABDFE", Day07.findOrder(getData("day07-0")));
+		Assert.equals("BHRTWCYSELPUVZAOIJKGMFQDXN", Day07.findOrder(getData("day07-1")));
 	}
 }
