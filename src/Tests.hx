@@ -69,5 +69,8 @@ class Tests implements ITest {
 	function testDay07() {
 		Assert.equals("CABDFE", Day07.findOrder(getData("day07-0")));
 		Assert.equals("BHRTWCYSELPUVZAOIJKGMFQDXN", Day07.findOrder(getData("day07-1")));
+
+		Assert.equals(15, Day07.computeCompletionTime(getData("day07-0"), 2, 0));
+		Assert.equals(959, Day07.computeCompletionTime(getData("day07-1"), 5, 60));
 	}
 }

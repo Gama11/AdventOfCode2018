@@ -29,22 +29,62 @@ class Day07 {
 
 	public static function findOrder(input:String):String {
 		var graph = parseGraph(input);
-		var steps = "";
-		var available = graph.filter(node -> node.dependencies.length == 0).map(n -> n.name);
-		while (available.length > 0) {
-			available.sort(Reflect.compare);
-			var name = available.shift();
-			steps += name;
+		var done = "";
+		var queued = graph.filter(node -> node.dependencies.length == 0).map(n -> n.name);
+
+		while (queued.length > 0) {
+			queued.sort(Reflect.compare);
+			var name = queued.shift();
+			done += name;
 			for (dependent in graph[name].dependents) {
-				if (graph[dependent].dependencies.exists(dep -> steps.indexOf(dep) == -1)) {
+				if (graph[dependent].dependencies.exists(dep -> done.indexOf(dep) == -1)) {
 					continue;
 				}
-				if (available.indexOf(dependent) == -1) {
-					available.push(dependent);
+				if (queued.indexOf(dependent) == -1) {
+					queued.push(dependent);
 				}
 			}
 		}
-		return steps;
+		
+		return done;
+	}
+
+	public static function computeCompletionTime(input:String, workers:Int, stepDuration:Int):Int {
+		var graph = parseGraph(input);
+		var done = "";
+		var queued = graph.filter(node -> node.dependencies.length == 0).map(n -> n.name);
+		var inProgress = [];
+		var elapsedTime = 0;
+
+		while (queued.length > 0 || inProgress.length > 0) {
+			queued.sort(Reflect.compare);
+			while (inProgress.length < workers && queued.length > 0) {
+				var name = queued.shift();
+				inProgress.push({
+					name: name,
+					timeLeft: stepDuration + name.charCodeAt(0) - 64,
+				});
+			}
+
+			inProgress.sort((n1, n2) -> n1.timeLeft - n2.timeLeft);
+			var completed = inProgress.shift();
+			done += completed.name;
+			for (left in inProgress) {
+				left.timeLeft -= completed.timeLeft;
+			}
+			elapsedTime += completed.timeLeft;
+
+			for (dependent in graph[completed.name].dependents) {
+				if (graph[dependent].dependencies.exists(dep -> done.indexOf(dep) == -1)) {
+					continue;
+				}
+				if (queued.indexOf(dependent) == -1) {
+					queued.push(dependent);
+				}
+			}
+		}
+	
+		return elapsedTime;
 	}
 }
 
