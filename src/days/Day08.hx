@@ -1,7 +1,7 @@
 package days;
 
 class Day08 {
-	static function parseTree(input:String):Node {
+	public static function parseTree(input:String):Node {
 		var data = input.split(" ").map(Std.parseInt);
 		function parse(i:Int):{length:Int, node:Node} {
 			var startIndex = i;
@@ -25,12 +25,18 @@ class Day08 {
 		return parse(0).node;
 	}
 
-	public static function checksum(input:String):Int {
-		var tree = parseTree(input);
-		function _checksum(node:Node):Int {
-			return node.metadata.sum() + node.children.map(_checksum).sum();
+	public static function checksum(node:Node):Int {
+		return node.metadata.sum() + node.children.map(checksum).sum();
+	}
+
+	public static function value(node:Node):Int {
+		if (node.children.length == 0) {
+			return node.metadata.sum();
 		}
-		return _checksum(tree);
+		return [for (meta in node.metadata) {
+			var child = node.children[meta - 1];
+			if (child == null) 0 else value(child);
+		}].sum();
 	}
 }
 

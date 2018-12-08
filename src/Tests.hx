@@ -78,7 +78,13 @@ class Tests implements ITest {
 	}
 
 	function testDay08() {
-		Assert.equals(138, Day08.checksum("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2"));
-		Assert.equals(45210, Day08.checksum(getData("day08")));
+		var example = Day08.parseTree("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2");
+		var data = Day08.parseTree(getData("day08"));
+	
+		Assert.equals(138, Day08.checksum(example));
+		Assert.equals(45210, Day08.checksum(data));
+
+		Assert.equals(66, Day08.value(example));
+		Assert.equals(22793, Day08.value(data));
 	}
 }
