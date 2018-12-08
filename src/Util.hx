@@ -14,13 +14,17 @@ class Util {
             }
         }
         return result;
-    }
+    }    
 }
 
-class ERegUtil {
+class StaticExtensions {
 	public static function matchedInt(reg:EReg, n:Int):Null<Int> {
 		return Std.parseInt(reg.matched(n));
 	}
+
+    public static function sum(a:Array<Int>):Int {
+        return a.fold((a, b) -> a + b, 0);
+    }
 }
 
 class Point {

@@ -1,3 +1,3 @@
 using StringTools;
 using Lambda;
-using Util.ERegUtil;
+using Util.StaticExtensions;

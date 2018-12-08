@@ -41,6 +41,7 @@ class Tests implements ITest {
 		Assert.equals(560, Day03.findNonOverlappingClaim(getData("day03-1")));
 	}
 
+	#if !eval
 	function testDay04() {
 		Assert.equals(240, Day04.findSleepiestMinuteOfSleepiestGuard(getData("day04-0")));
 		Assert.equals(74743, Day04.findSleepiestMinuteOfSleepiestGuard(getData("day04-1")));
@@ -48,6 +49,7 @@ class Tests implements ITest {
 		Assert.equals(4455, Day04.findSleepiestMinuteOverall(getData("day04-0")));
 		Assert.equals(132484, Day04.findSleepiestMinuteOverall(getData("day04-1")));
 	}
+	#end
 
 	@Ignored
 	function testDay05() {
@@ -58,6 +60,7 @@ class Tests implements ITest {
 		Assert.equals(5278, Day05.findBestReduction(getData("day05")));
 	}
 
+	@Ignored
 	function testDay06() {
 		Assert.equals(17, Day06.findLargestFiniteArea(getData("day06-0")));
 		Assert.equals(5035, Day06.findLargestFiniteArea(getData("day06-1")));
@@ -72,5 +75,10 @@ class Tests implements ITest {
 
 		Assert.equals(15, Day07.computeCompletionTime(getData("day07-0"), 2, 0));
 		Assert.equals(959, Day07.computeCompletionTime(getData("day07-1"), 5, 60));
+	}
+
+	function testDay08() {
+		Assert.equals(138, Day08.checksum("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2"));
+		Assert.equals(45210, Day08.checksum(getData("day08")));
 	}
 }

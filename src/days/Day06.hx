@@ -72,7 +72,7 @@ class Day06 {
 		for (x in 0...gridSize.x + 1) {
 			for (y in 0...gridSize.y + 1) {
 				var point = new Point(x, y);
-				var distanceSum = points.map(p -> p.distanceTo(point)).fold((a, b) -> a + b, 0);
+				var distanceSum = points.map(p -> p.distanceTo(point)).sum();
 				if (distanceSum < maxDistance) {
 					regionSize++;
 				}
