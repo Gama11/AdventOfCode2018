@@ -87,4 +87,14 @@ class Tests implements ITest {
 		Assert.equals(66, Day08.value(example));
 		Assert.equals(22793, Day08.value(data));
 	}
+
+	function testDay09() {
+		Assert.equals(32, Day09.findHighScore(9, 25));
+		Assert.equals(8317, Day09.findHighScore(10, 1618));
+		Assert.equals(146373, Day09.findHighScore(13, 7999));
+		Assert.equals(2764, Day09.findHighScore(17, 1104));
+		Assert.equals(54718, Day09.findHighScore(21, 6111));
+		Assert.equals(37305, Day09.findHighScore(30, 5807));
+		Assert.equals(399645, Day09.findHighScore(429, 70901));
+	}
 }
