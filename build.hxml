@@ -2,12 +2,13 @@
 -D eval-stack
 -main Tests
 -lib utest
---interp
--debug
+-lib polygonal-ds
+# --interp
+# -debug
 
-# -js export/test.js
-# -cmd node export/test.js
-# -lib hxnodejs
+-js export/test.js
+-cmd node export/test.js
+-lib hxnodejs
 
 # -cpp export/cpp
 # -cmd export\cpp\Tests.exe

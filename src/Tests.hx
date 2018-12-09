@@ -96,5 +96,7 @@ class Tests implements ITest {
 		Assert.equals(54718, Day09.findHighScore(21, 6111));
 		Assert.equals(37305, Day09.findHighScore(30, 5807));
 		Assert.equals(399645, Day09.findHighScore(429, 70901));
+
+		Assert.equals(3352507536, Day09.findHighScore(429, 70901 * 100));
 	}
 }

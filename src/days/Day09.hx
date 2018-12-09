@@ -1,23 +1,25 @@
 package days;
 
+import polygonal.ds.Dll;
+
 class Day09 {
 	public static function findHighScore(players:Int, lastMarble:Int):Int {
-		var marbles = [0];
-		var current = 0;
+		var marbles = new Dll(0, [0]);
+		marbles.close();
+		var current = marbles.getNodeAt(0);
 		var marbleNumber = 1;
 		var scores = [for (player in 0...players) player => 0];
 		var player = 0;
 
 		while (marbleNumber <= lastMarble) {
 			if (marbleNumber % 23 == 0) {
-				scores[player] += marbleNumber;
-				var toRemove = Util.mod(current - 7, marbles.length);
-				scores[player] += marbles.splice(toRemove, 1)[0];
-				current = toRemove;
+				for (_ in 0...7) {
+					current = current.prev;
+				}
+				scores[player] += marbleNumber + current.val;
+				current = marbles.unlink(current);
 			} else {
-				var clockwise1 = (current + 1) % marbles.length;
-				current = clockwise1 + 1;
-				marbles.insert(current, marbleNumber);
+				current = marbles.insertAfter(current.next, marbleNumber);
 			}
 			player = (player + 1) % players;
 			marbleNumber++;
