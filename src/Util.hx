@@ -44,6 +44,10 @@ class Point {
         return new Point(x + point.x, y + point.y);
     }
 
+    public inline function scale(n:Int):Point {
+        return new Point(x * n, y * n);
+    }
+
 	public function distanceTo(point:Point):Int {
         return Std.int(Math.abs(x - point.x) + Math.abs(y - point.y));
     }

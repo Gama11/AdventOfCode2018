@@ -88,6 +88,7 @@ class Tests implements ITest {
 		Assert.equals(22793, Day08.value(data));
 	}
 
+	@Ignored
 	function testDay09() {
 		Assert.equals(32, Day09.findHighScore(9, 25));
 		Assert.equals(8317, Day09.findHighScore(10, 1618));
@@ -98,5 +99,10 @@ class Tests implements ITest {
 		Assert.equals(399645, Day09.findHighScore(429, 70901));
 
 		Assert.equals(3352507536, Day09.findHighScore(429, 70901 * 100));
+	}
+
+	function testDay10() {
+		Assert.equals(3, Day10.getMessage(getData("day10-0")));
+		Assert.equals(10007, Day10.getMessage(getData("day10-1")));
 	}
 }
