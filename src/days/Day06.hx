@@ -28,12 +28,12 @@ class Day06 {
 		var points = parsePoints(input);
 		var gridSize = findGridSize(points);
 		
-		var areas = [for (point in points) point => 0];
+		var areas:Map<Point, Null<Int>> = [for (point in points) point => 0];
 		for (x in 0...gridSize.x + 1) {
 			for (y in 0...gridSize.y + 1) {
 				var p = new Point(x, y);
 				var bestPoint = null;
-				var bestDistance = null;
+				var bestDistance:Null<Int> = null;
 				var contested = false;
 				for (point in points) {
 					var distance = p.distanceTo(point);

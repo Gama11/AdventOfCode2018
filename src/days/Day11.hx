@@ -17,28 +17,44 @@ class Day11 {
 		return if (digit == "") 0 else Std.parseInt(digit);
 	}
 
-	public static function findHighestPoweredSquare(gridSerial:Int):Point {
+	static function findHighestPoweredSquare(gridSerial:Int, squareSizes:Array<Int>) {
 		var gridSize = new Point(300, 300);
-		var square = new Point(3, 3);
 		var grid = [for (x in 0...gridSize.x + 1) [for (y in 0...gridSize.y + 1) {
 			computePowerLevel(new Point(x, y), gridSerial);
 		}]];
 		var bestPower = 0;
 		var bestSquare = null;
-		for (x in 0...gridSize.x - square.x) {
-			for (y in 0...gridSize.y - square.y) {
-				var power = 0;
-				for (sx in 0...square.x) {
-					for (sy in 0...square.y) {
-						power += grid[x + sx][y + sy];
+		var bestSize = 0;
+		for (size in squareSizes) {
+			for (x in 0...gridSize.x - size) {
+				for (y in 0...gridSize.y - size) {
+					var power = 0;
+					for (sx in 0...size) {
+						for (sy in 0...size) {
+							power += grid[x + sx][y + sy];
+						}
 					}
-				}
-				if (power > bestPower) {
-					bestPower = power;
-					bestSquare = new Point(x, y);
+					if (power > bestPower) {
+						bestPower = power;
+						bestSquare = new Point(x, y);
+						bestSize = size;
+					}
 				}
 			}
 		}
-		return bestSquare;
+		return {
+			square: bestSquare.x + "," + bestSquare.y,
+			size: bestSize	
+		};
+	}
+
+	public static function findHighestPowered3x3(gridSerial:Int):String {
+		var result = findHighestPoweredSquare(gridSerial, [3]);
+		return result.square;
+	}
+
+	public static function findHighestPoweredAnySize(gridSerial:Int):String {
+		var result = findHighestPoweredSquare(gridSerial, [for (i in 0...300) i + 1]);
+		return result.square + "," + result.size;
 	}
 }

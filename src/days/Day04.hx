@@ -36,7 +36,7 @@ class Day04 {
 			}
 		});
 
-		var currentGuard = null;
+		var currentGuard:Null<Int> = null;
 		var sleepingSince = null;
 		var sleepData = new Map<Int, SleepData>();
 

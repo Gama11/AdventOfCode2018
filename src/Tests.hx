@@ -107,14 +107,17 @@ class Tests implements ITest {
 		Assert.equals(10007, Day10.getMessage(getData("day10-1")));
 	}
 
+	@Ignored
 	function testDay11() {
 		Assert.equals(4, Day11.computePowerLevel(new Point(3, 5), 8));
 		Assert.equals(-5, Day11.computePowerLevel(new Point(122, 79), 57));
 		Assert.equals(0, Day11.computePowerLevel(new Point(217, 196), 39));
 		Assert.equals(4, Day11.computePowerLevel(new Point(101, 153), 71));
 
-		Assert.isTrue(new Point(33, 45).equals(Day11.findHighestPoweredSquare(18)));
-		Assert.isTrue(new Point(21, 61).equals(Day11.findHighestPoweredSquare(42)));
-		Assert.isTrue(new Point(34, 13).equals(Day11.findHighestPoweredSquare(1723)));
+		Assert.equals("33,45", Day11.findHighestPowered3x3(18));
+		Assert.equals("21,61", Day11.findHighestPowered3x3(42));
+		Assert.equals("34,13", Day11.findHighestPowered3x3(1723));
+
+		Assert.equals("280,218,11", Day11.findHighestPoweredAnySize(1723));
 	}
 }
