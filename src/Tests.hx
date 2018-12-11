@@ -1,4 +1,5 @@
 import days.*;
+import Util.Point;
 import utest.ITest;
 import utest.Assert;
 import utest.UTest;
@@ -104,5 +105,16 @@ class Tests implements ITest {
 	function testDay10() {
 		Assert.equals(3, Day10.getMessage(getData("day10-0")));
 		Assert.equals(10007, Day10.getMessage(getData("day10-1")));
+	}
+
+	function testDay11() {
+		Assert.equals(4, Day11.computePowerLevel(new Point(3, 5), 8));
+		Assert.equals(-5, Day11.computePowerLevel(new Point(122, 79), 57));
+		Assert.equals(0, Day11.computePowerLevel(new Point(217, 196), 39));
+		Assert.equals(4, Day11.computePowerLevel(new Point(101, 153), 71));
+
+		Assert.isTrue(new Point(33, 45).equals(Day11.findHighestPoweredSquare(18)));
+		Assert.isTrue(new Point(21, 61).equals(Day11.findHighestPoweredSquare(42)));
+		Assert.isTrue(new Point(34, 13).equals(Day11.findHighestPoweredSquare(1723)));
 	}
 }
