@@ -120,4 +120,9 @@ class Tests implements ITest {
 
 		Assert.equals("280,218,11", Day11.findHighestPoweredAnySize(1723));
 	}
+
+	function testDay12() {
+		Assert.equals(325, Day12.simulate(getData("day12-0")));
+		Assert.equals(2736, Day12.simulate(getData("day12-1")));
+	}
 }
