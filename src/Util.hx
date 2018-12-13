@@ -56,7 +56,11 @@ class Point {
         return x == point.x && y == point.y;
     }
 
-    function toString() {
+    public function shortString():String {
+        return '$x,$y';
+    }
+
+    function toString():String {
         return '($x, $y)';
     }
 }

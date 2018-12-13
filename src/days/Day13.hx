@@ -91,19 +91,29 @@ class Day13 {
 		}
 	}
 
-	public static function findFirstCrashPosition(input:String):String {
+	public static function simulate(input:String, removeCrashes:Bool):String {
 		var trackSystem = parse(input);
 		var track = trackSystem.track;
 		var carts = trackSystem.carts;
 		while (true) {
 			carts.sort(sortCarts);
-			var occupied = new HashMap<Point, Bool>();
-			for (cart in carts) {
+			var occupied = new HashMap<Point, Cart>();
+			var i = carts.length;
+			while (i-- > 0) {
+				var cart = carts[i];
 				move(cart, track);
 				if (occupied.exists(cart.position)) {
-					return cart.position.x + "," + cart.position.y;				
+					if (removeCrashes) {
+						carts.remove(cart);
+						carts.remove(occupied.get(cart.position));
+					} else {
+						return cart.position.shortString();
+					}
 				}
-				occupied.set(cart.position, true);
+				occupied.set(cart.position, cart);
+			}
+			if (removeCrashes && carts.length == 1) {
+				return carts[0].position.shortString();
 			}
 		}
 		return null;

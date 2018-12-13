@@ -129,8 +129,11 @@ class Tests implements ITest {
 	}
 
 	function testDay13() {
-		Assert.equals("0,3", Day13.findFirstCrashPosition(getData("day13-0")));
-		Assert.equals("7,3", Day13.findFirstCrashPosition(getData("day13-1")));
-		Assert.equals("119,41", Day13.findFirstCrashPosition(getData("day13-2")));
+		Assert.equals("0,3", Day13.simulate(getData("day13-0"), false));
+		Assert.equals("7,3", Day13.simulate(getData("day13-1"), false));
+		Assert.equals("119,41", Day13.simulate(getData("day13-2"), false));
+
+		Assert.equals("6,4", Day13.simulate(getData("day13-3"), true));
+		Assert.equals("45,136", Day13.simulate(getData("day13-2"), true));
 	}
 }
