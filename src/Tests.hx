@@ -122,7 +122,9 @@ class Tests implements ITest {
 	}
 
 	function testDay12() {
-		Assert.equals(325, Day12.simulate(getData("day12-0")));
-		Assert.equals(2736, Day12.simulate(getData("day12-1")));
+		Assert.equals(325, Day12.simulate(getData("day12-0"), 20));
+		Assert.equals(2736, Day12.simulate(getData("day12-1"), 20));
+		
+		Assert.equals(3150000000905, Day12.simulate(getData("day12-1"), 50000000000));
 	}
 }

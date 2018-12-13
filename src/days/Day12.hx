@@ -16,10 +16,10 @@ class Day12 {
 		}
 	}
 
-	public static function simulate(input:String):Int {
+	public static function simulate(input:String, generations:Float):Float {
 		var data = parse(input);
 		var pots = data.pots.split("");
-		var padding = 0;
+		var offset = 0;
 
 		function pad() {
 			var amount = 0;
@@ -33,12 +33,12 @@ class Day12 {
 				pots.unshift(Empty);
 				pots.push(Empty);
 			}
-			padding += amount;
+			offset += amount;
 		}
 		pad();
-		
-		var generations = 20;
-		for (_ in 0...generations) {
+
+		var prevSection = "";
+		while (generations > 0) {
 			var newPots = pots.copy();
 			for (i in 2...pots.length - 2) {
 				var section = pots[i - 2] + pots[i - 1] + pots[i] + pots[i + 1] + pots[i + 2];
@@ -47,15 +47,35 @@ class Day12 {
 			}
 			pots = newPots;
 			pad();
+			generations--;
+
+			var filledSection = extractFilledSection(pots);
+			if (prevSection == filledSection) {
+				// pattern has become stable
+				break;
+			}
+			prevSection = filledSection;
 		}
 
-		var sum = 0;
+		var sum = 0.0;
 		for (i in 0...pots.length) {
 			if (pots[i] == Filled) {
-				sum += i - padding;
+				// shifted to the right one for each leftover generation
+				sum += i + generations - offset;
 			}
 		}
 		return sum;
+	}
+
+	static function extractFilledSection(pots:Array<String>):String {
+		pots = pots.copy();
+		while (pots[0] == Empty) {
+			pots.shift();
+		}
+		while (pots[pots.length - 1] == Empty) {
+			pots.pop();
+		}
+		return pots.join("");
 	}
 }
 
