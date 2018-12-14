@@ -136,4 +136,12 @@ class Tests implements ITest {
 		Assert.equals("6,4", Day13.simulate(getData("day13-3"), true));
 		Assert.equals("45,136", Day13.simulate(getData("day13-2"), true));
 	}
+
+	function testDay14() {
+		Assert.equals("5158916779", Day14.makeRecipes(9));
+		Assert.equals("0124515891", Day14.makeRecipes(5));
+		Assert.equals("9251071085", Day14.makeRecipes(18));
+		Assert.equals("5941429882", Day14.makeRecipes(2018));
+		Assert.equals("1631191756", Day14.makeRecipes(409551));
+	}
 }
