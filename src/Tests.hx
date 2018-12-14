@@ -138,10 +138,16 @@ class Tests implements ITest {
 	}
 
 	function testDay14() {
-		Assert.equals("5158916779", Day14.makeRecipes(9));
-		Assert.equals("0124515891", Day14.makeRecipes(5));
-		Assert.equals("9251071085", Day14.makeRecipes(18));
-		Assert.equals("5941429882", Day14.makeRecipes(2018));
-		Assert.equals("1631191756", Day14.makeRecipes(409551));
+		Assert.equals("5158916779", Day14.getSequenceAfter(9));
+		Assert.equals("0124515891", Day14.getSequenceAfter(5));
+		Assert.equals("9251071085", Day14.getSequenceAfter(18));
+		Assert.equals("5941429882", Day14.getSequenceAfter(2018));
+		Assert.equals("1631191756", Day14.getSequenceAfter(409551));
+
+		Assert.equals(9, Day14.countRecipesLeftOf("51589"));
+		Assert.equals(5, Day14.countRecipesLeftOf("01245"));
+		Assert.equals(18, Day14.countRecipesLeftOf("92510"));
+		Assert.equals(2018, Day14.countRecipesLeftOf("59414"));
+		Assert.equals(20219475, Day14.countRecipesLeftOf("409551"));
 	}
 }
