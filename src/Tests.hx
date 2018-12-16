@@ -162,5 +162,12 @@ class Tests implements ITest {
 		Assert.equals(13400, Day15.simulateCombat(getData("day15-6")));
 		Assert.equals(13987, Day15.simulateCombat(getData("day15-7")));
 		Assert.equals(261855, Day15.simulateCombat(getData("day15-8")));
+
+		Assert.equals(4988, Day15.findMinAttackPower(getData("day15-0")));
+		Assert.equals(31284, Day15.findMinAttackPower(getData("day15-2")));
+		Assert.equals(3478, Day15.findMinAttackPower(getData("day15-3")));
+		Assert.equals(6474, Day15.findMinAttackPower(getData("day15-4")));
+		Assert.equals(1140, Day15.findMinAttackPower(getData("day15-5")));
+		Assert.equals(59568, Day15.findMinAttackPower(getData("day15-8")));
 	}
 }

@@ -5,7 +5,7 @@ import Util.Movement.*;
 import haxe.ds.HashMap;
 
 class Day15 {
-	static function parse(input:String):Map {
+	static function parse(input:String, elfAttack:Int):Map {
 		var rows = input.split("\n");
 		var map = [for (y in 0...rows.length) [for (x in 0...rows[0].length) Empty]];
 		for (y in 0...rows.length) {
@@ -16,8 +16,8 @@ class Day15 {
 				map[y][x] = switch (cell) {
 					case "#": Wall;
 					case ".": Empty;
-					case "E": Unit({faction: Elf, health: 200, position: new Point(x, y)});
-					case "G": Unit({faction: Goblin, health: 200, position: new Point(x, y)});
+					case "E": Unit({faction: Elf, health: 200, attack: elfAttack, position: new Point(x, y)});
+					case "G": Unit({faction: Goblin, health: 200, attack: 3, position: new Point(x, y)});
 					case _: throw 'unknown map tile $cell';
 				}
 			}
@@ -95,10 +95,10 @@ class Day15 {
 		return solutions[0].start;
 	}
 	
-	static function attack(map:Map, unit:UnitData):Bool {
+	static function attack(map:Map, unit:UnitData):TurnResult {
 		var enemies = getEnemiesInRange(map, unit);
 		if (enemies.length == 0) {
-			return false;
+			return Idle;
 		}
 
 		var lowestHealth = 200;
@@ -111,35 +111,36 @@ class Day15 {
 		enemies.sort((a, b) -> a.position.hashCode() - b.position.hashCode());
 
 		var target = enemies[0];
-		target.health -= 3;
+		target.health -= unit.attack;
 		if (target.health <= 0) {
 			target.health = 0;
 			map[target.position] = Empty;
+			return Kill(target.faction);
 		}
-		return true;
+		return Attack;
 	}
 
-	static function takeTurn(map:Map, unit:UnitData):Bool {
-		if (attack(map, unit)) {
-			return true;
+	static function takeTurn(map:Map, unit:UnitData):TurnResult {
+		var result = attack(map, unit);
+		if (result != Idle) {
+			return result;
 		}
 		var next = findNextPosition(map, unit);
 		if (next == null) {
-			return false;
+			return Idle;
 		}
 		map[unit.position] = Empty;
 		map[next] = Unit(unit);
 		unit.position = next;
-		attack(map, unit);
-		return true;
+		return attack(map, unit);
 	}
 
 	static function hasWon(faction:Faction, units:Array<UnitData>):Bool {
 		return !units.exists(unit -> unit.faction != faction && unit.health > 0);
 	}
 
-	public static function simulateCombat(input:String, debug:Bool = false):Int {
-		var map = parse(input);
+	public static function simulateCombat(input:String, elfAttack:Int = 3, allowElfDeaths:Bool = true, debug:Bool = false):Int {
+		var map = parse(input, elfAttack);
 		var rounds = 0;
 		function renderMap() {
 			if (debug) {
@@ -164,7 +165,11 @@ class Day15 {
 				if (unit.health == 0) {
 					continue;
 				}
-				if (!takeTurn(map, unit) && hasWon(unit.faction, units)) {
+				var turn = takeTurn(map, unit);
+				if (turn.match(Kill(Elf)) && !allowElfDeaths) {
+					throw 'oh no!';
+				}
+				if (turn == Idle && hasWon(unit.faction, units)) {
 					renderMap();
 					var totalHealth = units.map(unit -> unit.health).sum();
 					var outcome = units.map(unit -> unit.health).sum() * rounds;
@@ -180,6 +185,25 @@ class Day15 {
 		}
 		return 0;
 	}
+
+	public static function findMinAttackPower(input:String):Int {
+		var attack = 3;
+		while (true) {
+			try {
+				return simulateCombat(input, attack, false);
+			} catch (_:Any) {
+				// try again...
+			}
+			attack++;
+		}
+		return 0;
+	}
+}
+
+private enum TurnResult {
+	Attack;
+	Idle;
+	Kill(faction:Faction);
 }
 
 private typedef SearchNode = {
@@ -221,6 +245,7 @@ private enum Tile {
 private typedef UnitData = {
 	final faction:Faction;
 	var health:Int;
+	var attack:Int;
 	var position:Point;
 }
 
