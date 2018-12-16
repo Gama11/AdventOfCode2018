@@ -152,6 +152,7 @@ class Tests implements ITest {
 		Assert.equals(20219475, Day14.countRecipesLeftOf("409551"));
 	}
 
+	@Ignored
 	function testDay15() {
 		Assert.equals(27730, Day15.simulateCombat(getData("day15-0")));
 		Assert.equals(36334, Day15.simulateCombat(getData("day15-1")));
@@ -169,5 +170,9 @@ class Tests implements ITest {
 		Assert.equals(6474, Day15.findMinAttackPower(getData("day15-4")));
 		Assert.equals(1140, Day15.findMinAttackPower(getData("day15-5")));
 		Assert.equals(59568, Day15.findMinAttackPower(getData("day15-8")));
+	}
+
+	function testDay16() {
+		Assert.equals(636, Day16.countTripleMatchSamples(getData("day16-1")));
 	}
 }
