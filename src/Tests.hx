@@ -137,6 +137,7 @@ class Tests implements ITest {
 		Assert.equals("45,136", Day13.simulate(getData("day13-2"), true));
 	}
 
+	@Ignored
 	function testDay14() {
 		Assert.equals("5158916779", Day14.getSequenceAfter(9));
 		Assert.equals("0124515891", Day14.getSequenceAfter(5));
@@ -149,5 +150,17 @@ class Tests implements ITest {
 		Assert.equals(18, Day14.countRecipesLeftOf("92510"));
 		Assert.equals(2018, Day14.countRecipesLeftOf("59414"));
 		Assert.equals(20219475, Day14.countRecipesLeftOf("409551"));
+	}
+
+	function testDay15() {
+		Assert.equals(27730, Day15.simulateCombat(getData("day15-0")));
+		Assert.equals(36334, Day15.simulateCombat(getData("day15-1")));
+		Assert.equals(39514, Day15.simulateCombat(getData("day15-2")));
+		Assert.equals(27755, Day15.simulateCombat(getData("day15-3")));
+		Assert.equals(28944, Day15.simulateCombat(getData("day15-4")));
+		Assert.equals(18740, Day15.simulateCombat(getData("day15-5")));
+		Assert.equals(13400, Day15.simulateCombat(getData("day15-6")));
+		Assert.equals(13987, Day15.simulateCombat(getData("day15-7")));
+		Assert.equals(261855, Day15.simulateCombat(getData("day15-8")));
 	}
 }
