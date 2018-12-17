@@ -79,20 +79,29 @@ class Day17 {
 		}
 	}
 
-	public static function countTilesReachableByWater(input:String):Int {
+	public static function countWaterTiles(input:String) {
 		var map = parseScan(input);
 		flow(map, new Point(500, 0));
-		var count = 0;
+		var total = 0;
+		var resting = 0;
 		for (pos in map.tiles.keys()) {
 			if (pos.y < map.minY) {
 				continue;
 			}
 			var tile = map.tiles.get(pos);
-			if (tile == RestingWater || tile == FlowingWater) {
-				count++;
+			switch (tile) {
+				case RestingWater:
+					total++;
+					resting++;
+				case FlowingWater:
+					total++;
+				case _:
 			}
 		}
-		return count;
+		return {
+			total: total,
+			resting: resting
+		};
 	}
 }
 

@@ -178,7 +178,12 @@ class Tests implements ITest {
 	}
 
 	function testDay17() {
-		Assert.equals(57, Day17.countTilesReachableByWater(getData("day17-0")));
-		Assert.equals(57, Day17.countTilesReachableByWater(getData("day17-1")));
+		var result0 = Day17.countWaterTiles(getData("day17-0"));
+		Assert.equals(57, result0.total);
+		Assert.equals(29, result0.resting);
+
+		var result1 = Day17.countWaterTiles(getData("day17-1"));
+		Assert.equals(31471, result1.total);
+		Assert.equals(24169, result1.resting);
 	}
 }
