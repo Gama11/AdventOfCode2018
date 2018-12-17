@@ -17,27 +17,7 @@ class Day10 {
 	}
 
 	static function render(stars:Array<Star>):String {
-		final n = 9999999;
-		var maxX = -n;
-		var maxY = -n;
-		var minX = n;
-		var minY = n;
-		for (star in stars) {
-			var pos = star.position;
-			maxX = Std.int(Math.max(maxX, pos.x));
-			maxY = Std.int(Math.max(maxY, pos.y));
-			minX = Std.int(Math.min(minX, pos.x));
-			minY = Std.int(Math.min(minY, pos.y));
-		}
-		var offset = new Point(-minX, -minY);
-		var max = new Point(maxX, maxY).add(offset);
-
-		var grid = [for (_ in 0...max.y + 1) [for (_ in 0...max.x + 1) "."]];
-		for (star in stars) {
-			var pos = star.position;
-			grid[pos.y + offset.y][pos.x + offset.x] = "#";
-		}
-		return grid.map(row -> row.join("")).join("\n") + "\n";
+		return Util.renderPointGrid([for (star in stars) star.position], _ -> "#");
 	}
 
 	public static function getMessage(input:String) {

@@ -176,4 +176,9 @@ class Tests implements ITest {
 		Assert.equals(636, Day16.countTripleMatchSamples(getData("day16-1")));
 		Assert.equals(674, Day16.executeProgram(getData("day16-1"), getData("day16-2")));
 	}
+
+	function testDay17() {
+		Assert.equals(57, Day17.countTilesReachableByWater(getData("day17-0")));
+		Assert.equals(57, Day17.countTilesReachableByWater(getData("day17-1")));
+	}
 }
