@@ -189,7 +189,9 @@ class Tests implements ITest {
 	}
 
 	function testDay18() {
-		Assert.equals(1147, Day18.getResourceValue(getData("day18-0")));
-		Assert.equals(507755, Day18.getResourceValue(getData("day18-1")));
+		Assert.equals(1147, Day18.getResourceValue(getData("day18-0"), 10));
+		Assert.equals(507755, Day18.getResourceValue(getData("day18-1"), 10));
+
+		Assert.equals(235080, Day18.getResourceValue(getData("day18-1"), 1000000000));
 	}
 }
