@@ -177,6 +177,7 @@ class Tests implements ITest {
 		Assert.equals(674, Day16.executeProgram(getData("day16-1"), getData("day16-2")));
 	}
 
+	@Ignored
 	function testDay17() {
 		var result0 = Day17.countWaterTiles(getData("day17-0"));
 		Assert.equals(57, result0.total);
@@ -185,5 +186,10 @@ class Tests implements ITest {
 		var result1 = Day17.countWaterTiles(getData("day17-1"));
 		Assert.equals(31471, result1.total);
 		Assert.equals(24169, result1.resting);
+	}
+
+	function testDay18() {
+		Assert.equals(1147, Day18.getResourceValue(getData("day18-0")));
+		Assert.equals(507755, Day18.getResourceValue(getData("day18-1")));
 	}
 }
