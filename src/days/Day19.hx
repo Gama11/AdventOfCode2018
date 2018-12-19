@@ -25,20 +25,39 @@ class Day19 {
 		};
 	}
 
-	public static function executeProgram(input:String):Int {
+	public static function executeProgram(input:String, ?registers:Array<Int>):Int {
 		var program = parseProgram(input);
 		var ip = program.instructionPointer;
 		var instructions = program.instructions;
-		var registers = [0, 0, 0, 0, 0, 0];
+		if (registers == null) {
+			registers = [0, 0, 0, 0, 0, 0];
+		} 
 		while (true) {
 			var instruction = instructions[registers[ip]];
-			registers = Day16.exceuteInstruction(registers, instruction.op, instruction.args);
+			Day16.exceuteInstruction(registers, instruction.op, instruction.args);
 			if (registers[ip] + 1 >= instructions.length) {
 				break;
 			}
 			registers[ip]++;
 		}
 		return registers[0];
+	}
+
+	public static function getSampleSequence(input:String):String {
+		// register 1 contains the number the program is run on, ip = 1 skips the initialization of that register
+		// (so we can sample outputs for other inputs)
+		// entering the sequence on oeis.org reveals that the program computes the sum of the divisors
+		return [for (i in 0...20) executeProgram(input, [0, i + 1, 0, 0, 1, 0])].join(",");
+	}
+
+	public static function sumOfDivisors(n:Int):Int {
+		var sum = 0;
+		for (i in 0...n + 1) {
+			if (n % i == 0) {
+				sum += i;
+			}
+		} 
+		return sum;
 	}
 }
 

@@ -35,7 +35,7 @@ class Day16 {
 	}
 
 	public static function exceuteInstruction(registers:Array<Int>, op:Operation, args:Arguments):Array<Int> {
-		var r = registers.copy();
+		var r = registers;
 		var a = args.a;
 		var b = args.b;
 		var c = args.c;
@@ -71,7 +71,7 @@ class Day16 {
 			var matches = 0;
 			for (op in Operation.getConstructors()) {
 				var op = Operation.createByName(op);
-				var result = exceuteInstruction(sample.before, op, sample.instruction.args);
+				var result = exceuteInstruction(sample.before.copy(), op, sample.instruction.args);
 				if (equals(result, sample.after)) {
 					matches++;
 					if (matches >= 3) {
@@ -94,7 +94,7 @@ class Day16 {
 			var ops = Operation.getConstructors().map(op -> Operation.createByName(op));
 			for (sample in relevantSamples) {
 				ops = ops.filter(op -> {
-					var result = exceuteInstruction(sample.before, op, sample.instruction.args);
+					var result = exceuteInstruction(sample.before.copy(), op, sample.instruction.args);
 					equals(result, sample.after);
 				});
 			}
@@ -124,7 +124,7 @@ class Day16 {
 		var registers = [0, 0, 0, 0];
 		for (instruction in program) {
 			var op = mapping[instruction.opcode];
-			registers = exceuteInstruction(registers, op, instruction.args);
+			exceuteInstruction(registers, op, instruction.args);
 		}
 		return registers[0];
 	}

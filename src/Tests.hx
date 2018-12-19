@@ -198,5 +198,7 @@ class Tests implements ITest {
 	function testDay19() {
 		Assert.equals(6, Day19.executeProgram(getData("day19-0")));
 		Assert.equals(1848, Day19.executeProgram(getData("day19-1")));
+
+		Assert.equals(22157688, Day19.sumOfDivisors(10551260));
 	}
 }
