@@ -34,7 +34,7 @@ class Day16 {
 		return samples;
 	}
 
-	static function exceuteInstruction(registers:Array<Int>, op:Operation, args:Arguments):Array<Int> {
+	public static function exceuteInstruction(registers:Array<Int>, op:Operation, args:Arguments):Array<Int> {
 		var r = registers.copy();
 		var a = args.a;
 		var b = args.b;
@@ -141,13 +141,13 @@ private typedef Instruction = {
 	final args:Arguments;
 }
 
-private typedef Arguments = {
+typedef Arguments = {
 	final a:Int;
 	final b:Int;
 	final c:Int;
 }
 
-private enum Operation {
+enum Operation {
 	Addr;
 	Addi;
 	Mulr;

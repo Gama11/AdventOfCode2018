@@ -194,4 +194,9 @@ class Tests implements ITest {
 
 		Assert.equals(235080, Day18.getResourceValue(getData("day18-1"), 1000000000));
 	}
+
+	function testDay19() {
+		Assert.equals(6, Day19.executeProgram(getData("day19-0")));
+		Assert.equals(1848, Day19.executeProgram(getData("day19-1")));
+	}
 }
