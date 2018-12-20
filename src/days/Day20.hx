@@ -98,7 +98,7 @@ class Day20 {
 		return map.map(row -> row.join("")).join("\n");
 	}
 
-	public static function findLongestPathLength(input:String):Int {
+	public static function analyzeFacility(input:String) {
 		var rooms = explore(input);
 		var openSet = [{pos: new Point(0, 0), distance: 0}];
 		var closedSet = new HashMap<Point, Int>();
@@ -115,12 +115,19 @@ class Day20 {
 		}
 
 		var maxDistance = 0;
+		var min1000Count = 0;
 		for (distance in closedSet) {
 			if (distance > maxDistance) {
 				maxDistance = distance;
 			}
+			if (distance >= 1000) {
+				min1000Count++;
+			}
 		}
-		return maxDistance;
+		return {
+			maxDistance: maxDistance,
+			min1000Count: min1000Count
+		};
 	}
 }
 

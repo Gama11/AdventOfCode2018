@@ -212,11 +212,14 @@ class Tests implements ITest {
 		var example4 = "^ESSWWN(E|NNENN(EESS(WNSE|)SSS|WWWSSSSE(SW|NNNE)))$";
 		var example5 = "^WSSEESWWWNW(S|NENNEEEENN(ESSSSW(NWSW|SSEN)|WSWWN(E|WWS(E|SS))))$";
 
-		Assert.equals(3, Day20.findLongestPathLength(example1));
-		Assert.equals(10, Day20.findLongestPathLength(example2));
-		Assert.equals(18, Day20.findLongestPathLength(example3));
-		Assert.equals(23, Day20.findLongestPathLength(example4));
-		Assert.equals(31, Day20.findLongestPathLength(example5));
-		Assert.equals(4360, Day20.findLongestPathLength(getData("day20")));
+		Assert.equals(3, Day20.analyzeFacility(example1).maxDistance);
+		Assert.equals(10, Day20.analyzeFacility(example2).maxDistance);
+		Assert.equals(18, Day20.analyzeFacility(example3).maxDistance);
+		Assert.equals(23, Day20.analyzeFacility(example4).maxDistance);
+		Assert.equals(31, Day20.analyzeFacility(example5).maxDistance);
+
+		var facility = Day20.analyzeFacility(getData("day20"));
+		Assert.equals(4360, facility.maxDistance);
+		Assert.equals(8509, facility.min1000Count);
 	}
 }
