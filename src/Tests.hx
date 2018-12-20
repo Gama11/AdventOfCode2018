@@ -102,6 +102,7 @@ class Tests implements ITest {
 		Assert.equals(3352507536, Day09.findHighScore(429, 70901 * 100));
 	}
 
+	@Ignored
 	function testDay10() {
 		Assert.equals(3, Day10.getMessage(getData("day10-0")));
 		Assert.equals(10007, Day10.getMessage(getData("day10-1")));
@@ -188,6 +189,7 @@ class Tests implements ITest {
 		Assert.equals(24169, result1.resting);
 	}
 
+	@Ignored
 	function testDay18() {
 		Assert.equals(1147, Day18.getResourceValue(getData("day18-0"), 10));
 		Assert.equals(507755, Day18.getResourceValue(getData("day18-1"), 10));
@@ -195,10 +197,26 @@ class Tests implements ITest {
 		Assert.equals(235080, Day18.getResourceValue(getData("day18-1"), 1000000000));
 	}
 
+	@Ignored
 	function testDay19() {
 		Assert.equals(6, Day19.executeProgram(getData("day19-0")));
 		Assert.equals(1848, Day19.executeProgram(getData("day19-1")));
 
 		Assert.equals(22157688, Day19.sumOfDivisors(10551260));
+	}
+
+	function testDay20() {
+		var example1 = "^WNE$";
+		var example2 = "^ENWWW(NEEE|SSE(EE|N))$";
+		var example3 = "^ENNWSWW(NEWS|)SSSEEN(WNSE|)EE(SWEN|)NNN$";
+		var example4 = "^ESSWWN(E|NNENN(EESS(WNSE|)SSS|WWWSSSSE(SW|NNNE)))$";
+		var example5 = "^WSSEESWWWNW(S|NENNEEEENN(ESSSSW(NWSW|SSEN)|WSWWN(E|WWS(E|SS))))$";
+
+		Assert.equals(3, Day20.findLongestPathLength(example1));
+		Assert.equals(10, Day20.findLongestPathLength(example2));
+		Assert.equals(18, Day20.findLongestPathLength(example3));
+		Assert.equals(23, Day20.findLongestPathLength(example4));
+		Assert.equals(31, Day20.findLongestPathLength(example5));
+		Assert.equals(4360, Day20.findLongestPathLength(getData("day20")));
 	}
 }

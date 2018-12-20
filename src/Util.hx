@@ -1,3 +1,5 @@
+import polygonal.ds.Hashable;
+
 class Util {
 	public static function mod(a:Int, b:Int) {
 		var r = a % b;
@@ -16,7 +18,7 @@ class Util {
         return result;
     }
 
-    public static function renderPointGrid(points:Array<Point>, render:Point->String):String {
+    public static function findBounds(points:Array<Point>) {
         final n = 9999999;
 		var maxX = -n;
 		var maxY = -n;
@@ -28,12 +30,20 @@ class Util {
 			minX = Std.int(Math.min(minX, pos.x));
 			minY = Std.int(Math.min(minY, pos.y));
 		}
-		var offset = new Point(-minX, -minY);
-		var max = new Point(maxX, maxY).add(offset);
+        return {
+            min: new Point(minX, minY),
+            max: new Point(maxX, maxY)
+        };
+    }
 
-		var grid = [for (_ in 0...max.y + 1) [for (_ in 0...max.x + 1) "."]];
+    public static function renderPointGrid(points:Array<Point>, render:Point->String):String {
+        var bounds = findBounds(points);
+        var min = bounds.min;
+        var max = bounds.max;
+
+		var grid = [for (_ in 0...max.y - min.y + 1) [for (_ in 0...max.x - min.x + 1) "."]];
 		for (pos in points) {
-			grid[pos.y + offset.y][pos.x + offset.x] = render(pos);
+			grid[pos.y - min.y][pos.x - min.x] = render(pos);
 		}
 		return grid.map(row -> row.join("")).join("\n") + "\n";
     }
@@ -49,13 +59,16 @@ class StaticExtensions {
     }
 }
 
-class Point {
+class Point implements Hashable {
     public final x:Int;
     public final y:Int;
+
+    public var key(default, null):Int;
 
     public inline function new(x, y) {
         this.x = x;
         this.y = y;
+        key = hashCode();
     }
 
     public function hashCode():Int {
@@ -68,6 +81,10 @@ class Point {
 
     public inline function scale(n:Int):Point {
         return new Point(x * n, y * n);
+    }
+
+    public inline function invert():Point {
+        return new Point(-x, -y);
     }
 
 	public function distanceTo(point:Point):Int {
