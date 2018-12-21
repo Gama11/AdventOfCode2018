@@ -205,6 +205,7 @@ class Tests implements ITest {
 		Assert.equals(22157688, Day19.sumOfDivisors(10551260));
 	}
 
+	#if !eval
 	function testDay20() {
 		var example1 = "^WNE$";
 		var example2 = "^ENWWW(NEEE|SSE(EE|N))$";
@@ -221,5 +222,10 @@ class Tests implements ITest {
 		var facility = Day20.analyzeFacility(getData("day20"));
 		Assert.equals(4360, facility.maxDistance);
 		Assert.equals(8509, facility.min1000Count);
+	}
+	#end
+
+	function testDay21() {
+		Assert.equals(1848, Day21.executeProgram(getData("day21"), 1024276));
 	}
 }

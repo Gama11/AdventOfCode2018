@@ -4,7 +4,7 @@ import days.Day16.Arguments;
 import days.Day16.Operation;
 
 class Day19 {
-	static function parseProgram(input:String):Program {
+	public static function parseProgram(input:String):Program {
 		var lines = input.split("\n");
 		var instructionPointer = Std.parseInt(lines.shift().substr("#ip ".length));
 		var instructions = lines.map(line -> {
