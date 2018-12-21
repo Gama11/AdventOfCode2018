@@ -226,6 +226,8 @@ class Tests implements ITest {
 	#end
 
 	function testDay21() {
-		Assert.equals(1848, Day21.executeProgram(getData("day21"), 1024276));
+		var exitConditions = Day21.findExitConditions(getData("day21"));
+		Assert.equals(1024276, exitConditions.min);
+		Assert.equals(5876609, exitConditions.max);
 	}
 }
