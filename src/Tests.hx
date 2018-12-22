@@ -225,9 +225,15 @@ class Tests implements ITest {
 	}
 	#end
 
+	@Ignored
 	function testDay21() {
 		var exitConditions = Day21.findExitConditions(getData("day21"));
 		Assert.equals(1024276, exitConditions.min);
 		Assert.equals(5876609, exitConditions.max);
+	}
+
+	function testDay22() {
+		Assert.equals(114, Day22.determineRiskLevel(510, new Point(10, 10)));
+		Assert.equals(6318, Day22.determineRiskLevel(11820, new Point(7, 782)));
 	}
 }
