@@ -223,7 +223,6 @@ class Tests implements ITest {
 		Assert.equals(4360, facility.maxDistance);
 		Assert.equals(8509, facility.min1000Count);
 	}
-	#end
 
 	@Ignored
 	function testDay21() {
@@ -231,9 +230,13 @@ class Tests implements ITest {
 		Assert.equals(1024276, exitConditions.min);
 		Assert.equals(5876609, exitConditions.max);
 	}
+	#end
 
 	function testDay22() {
 		Assert.equals(114, Day22.determineRiskLevel(510, new Point(10, 10)));
 		Assert.equals(6318, Day22.determineRiskLevel(11820, new Point(7, 782)));
+		
+		Assert.equals(45, Day22.findFastestPath(510, new Point(10, 10)));
+		Assert.equals(1075, Day22.findFastestPath(11820, new Point(7, 782)));
 	}
 }

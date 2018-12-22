@@ -1,7 +1,9 @@
 package days;
 
-import haxe.ds.HashMap;
+import AStar.Move;
 import Util.Point;
+import Util.Movement.*;
+import haxe.ds.HashMap;
 
 class Day22 {
 	static function getErosionLevel(pos:Point, depth:Int, target:Point, cache:HashMap<Point, Int>):Int {
@@ -32,5 +34,97 @@ class Day22 {
 			}
 		}
 		return riskLevel;
+	}
+
+	public static function findFastestPath(depth:Int, target:Point):Int {
+		var erosionLevels = new HashMap<Point, Int>();
+		var map = new HashMap<Point, RegionType>();
+		function getRegion(pos:Point):RegionType {
+			var erosionLevel = getErosionLevel(pos, depth, target, erosionLevels);
+			var type = switch (erosionLevel % 3) {
+				case 0: Rocky;
+				case 1: Wet;
+				case 2: Narrow;
+				case _: throw pos;
+			}
+			map.set(pos, type);
+			return type;
+		}
+
+		function isEquipmentValid(tool:Tool, pos:Point):Bool {
+			return tool != switch (getRegion(pos)) {
+				case Rocky: None;
+				case Wet: Torch;
+				case Narrow: ClimbingGear;
+			};
+		}
+
+		var start = new CaveState(new Point(0, 0), Torch);
+		var goal = new CaveState(target, Torch);
+		
+		function score(state:CaveState):Int {
+			return state.pos.distanceTo(goal.pos);
+		}
+		
+		var directions = [Left, Right, Up, Down];
+		var tools = [Torch, ClimbingGear, None];
+		function getMoves(state:CaveState):Array<Move<CaveState>> {
+			var moves = [];
+			for (direction in directions) {
+				var pos = state.pos.add(direction);
+				if (pos.x < 0 || pos.y < 0) {
+					continue;
+				}
+				if (isEquipmentValid(state.tool, pos)) {
+					moves.push({
+						cost: 1,
+						state: new CaveState(pos, state.tool)
+					});
+				}
+			}
+
+			for (tool in tools) {
+				if (tool != state.tool && isEquipmentValid(tool, state.pos)) {
+					moves.push({
+						cost: 7,
+						state: new CaveState(state.pos, tool)
+					});
+				}
+			}
+			
+			return moves;
+		}
+
+		return AStar.search(start, goal, score, getMoves);
+	}
+}
+
+private enum RegionType {
+	Rocky;
+	Wet;
+	Narrow;
+}
+
+private enum Tool {
+	Torch;
+	ClimbingGear;
+	None;
+}
+
+private class CaveState {
+	public final pos:Point;
+	public final tool:Tool;
+
+	public function new(pos:Point, tool:Tool) {
+		this.pos = pos;
+		this.tool = tool;
+	}
+
+	public function hashCode():Int {
+		return pos.hashCode() + 10000000 * tool.getIndex();
+	}
+
+	public function toString():String {
+		return '$pos,$tool';
 	}
 }
