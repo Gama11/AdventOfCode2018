@@ -232,11 +232,17 @@ class Tests implements ITest {
 	}
 	#end
 
+	@Ignored
 	function testDay22() {
 		Assert.equals(114, Day22.determineRiskLevel(510, new Point(10, 10)));
 		Assert.equals(6318, Day22.determineRiskLevel(11820, new Point(7, 782)));
 		
 		Assert.equals(45, Day22.findFastestPath(510, new Point(10, 10)));
 		Assert.equals(1075, Day22.findFastestPath(11820, new Point(7, 782)));
+	}
+
+	function testDay23() {
+		Assert.equals(7, Day23.countBotsInBiggestRange(getData("day23-0")));
+		Assert.equals(417, Day23.countBotsInBiggestRange(getData("day23-1")));
 	}
 }

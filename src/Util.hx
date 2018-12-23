@@ -57,6 +57,19 @@ class StaticExtensions {
 	public static function sum(a:Array<Int>):Int {
 		return a.fold((a, b) -> a + b, 0);
 	}
+
+	public static function max<T>(a:Array<T>, f:T->Int):T {
+		var maxValue:Null<Int> = null;
+		var max:T = null;
+		for (e in a) {
+			var value = f(e);
+			if (value > maxValue) {
+				maxValue = value; 
+				max = e;
+			}
+		}
+		return max;
+	}
 }
 
 class Point implements Hashable {
@@ -101,6 +114,30 @@ class Point implements Hashable {
 
 	function toString():String {
 		return '($x, $y)';
+	}
+}
+
+class Point3D {
+	public final x:Int;
+	public final y:Int;
+	public final z:Int;
+
+	public inline function new(x, y, z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+
+	public function distanceTo(point:Point3D):Int {
+		return Std.int(Math.abs(x - point.x) + Math.abs(y - point.y) + Math.abs(z - point.z));
+	}
+
+	public inline function equals(point:Point3D):Bool {
+		return x == point.x && y == point.y && z == point.z;
+	}
+
+	function toString():String {
+		return '($x, $y, $z)';
 	}
 }
 
