@@ -1,3 +1,4 @@
+import polygonal.ds.Prioritizable;
 import polygonal.ds.Hashable;
 
 class Util {
@@ -70,6 +71,16 @@ class StaticExtensions {
 		}
 		return max;
 	}
+
+	public static function count<T>(a:Array<T>, f:T->Bool):Int {
+		var count = 0;
+		for (e in a) {
+			if (f(e)) {
+				count++;
+			}
+		}
+		return count;
+	}
 }
 
 class Point implements Hashable {
@@ -132,12 +143,20 @@ class Point3D {
 		return Std.int(Math.abs(x - point.x) + Math.abs(y - point.y) + Math.abs(z - point.z));
 	}
 
+	public inline function add(point:Point3D):Point3D {
+		return new Point3D(x + point.x, y + point.y, z + point.z);
+	}
+
+	public inline function scale(n:Int):Point3D {
+		return new Point3D(x * n, y * n, z * n);
+	}
+
 	public inline function equals(point:Point3D):Bool {
 		return x == point.x && y == point.y && z == point.z;
 	}
 
 	function toString():String {
-		return '($x, $y, $z)';
+		return '($x,$y,$z)';
 	}
 }
 
@@ -146,4 +165,15 @@ class Movement {
 	public static final Up = new Point(0, -1);
 	public static final Down = new Point(0, 1);
 	public static final Right = new Point(1, 0);
+}
+
+class PrioritizedItem<T> implements Prioritizable {
+	public final item:T;
+	public var priority(default, null):Float = 0;
+	public var position(default, null):Int;
+
+	public function new(item:T, priority:Float) {
+		this.item = item;
+		this.priority = priority;
+	}
 }

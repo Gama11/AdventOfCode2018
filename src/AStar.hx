@@ -1,6 +1,6 @@
 import haxe.ds.HashMap;
 import polygonal.ds.PriorityQueue;
-import polygonal.ds.Prioritizable;
+import Util.PrioritizedItem;
 
 class AStar {
 	public static function search<T:State>(start:T, goal:T, score:T->Int, getMoves:T->Array<Move<T>>):Null<Int> {
@@ -10,10 +10,10 @@ class AStar {
 			f: score(start)
 		});
 		var closedSet = new HashMap<T, Bool>();
-		var openSet = new PriorityQueue(1, true, [new PrioritizedState(start, score(start))]);
+		var openSet = new PriorityQueue(1, true, [new PrioritizedItem(start, score(start))]);
 
 		while (openSet.size > 0) {
-			var current = openSet.dequeue().state;
+			var current = openSet.dequeue().item;
 			closedSet.set(current, true);
 			
 			var currentScore = scores.get(current).g;
@@ -33,7 +33,7 @@ class AStar {
 						f: scoreAfterMove + score(move.state)
 					};
 					scores.set(move.state, score);
-					openSet.enqueue(new PrioritizedState(move.state, score.f));
+					openSet.enqueue(new PrioritizedItem(move.state, score.f));
 				}
 			}
 
@@ -55,15 +55,4 @@ typedef State = {
 private typedef Score = {
 	var g:Int;
 	var f:Int;
-}
-
-private class PrioritizedState<T:State> implements Prioritizable {
-	public final state:T;
-	public var priority(default, null):Float = 0;
-	public var position(default, null):Int;
-
-	public function new(state:T, priority:Float) {
-		this.state = state;
-		this.priority = priority;
-	}
 }
