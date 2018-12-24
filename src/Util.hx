@@ -59,14 +59,16 @@ class StaticExtensions {
 		return a.fold((a, b) -> a + b, 0);
 	}
 
-	public static function max<T>(a:Array<T>, f:T->Int):T {
+	public static function max<T>(a:Array<T>, f:T->Int):Array<T> {
 		var maxValue:Null<Int> = null;
-		var max:T = null;
+		var max = [];
 		for (e in a) {
 			var value = f(e);
-			if (value > maxValue) {
+			if (maxValue == null || value > maxValue) {
 				maxValue = value; 
-				max = e;
+				max = [e];
+			} else if (value == maxValue) {
+				max.push(e);
 			}
 		}
 		return max;
