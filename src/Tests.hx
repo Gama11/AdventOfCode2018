@@ -251,7 +251,10 @@ class Tests implements ITest {
 	#end
 
 	function testDay24() {
-		Assert.equals(5216, Day24.simulateCombat(getData("day24-0")));
-		Assert.equals(24318, Day24.simulateCombat(getData("day24-1")));
+		Assert.equals(5216, Day24.simulateCombat(getData("day24-0")).unitsLeft);
+		Assert.equals(24318, Day24.simulateCombat(getData("day24-1")).unitsLeft);
+
+		Assert.equals(51, Day24.findMinimalBoost(getData("day24-0")));
+		Assert.equals(1083, Day24.findMinimalBoost(getData("day24-1")));
 	}
 }

@@ -59,19 +59,19 @@ class StaticExtensions {
 		return a.fold((a, b) -> a + b, 0);
 	}
 
-	public static function max<T>(a:Array<T>, f:T->Int):Array<T> {
+	public static function max<T>(a:Array<T>, f:T->Int) {
 		var maxValue:Null<Int> = null;
-		var max = [];
+		var list = [];
 		for (e in a) {
 			var value = f(e);
 			if (maxValue == null || value > maxValue) {
 				maxValue = value; 
-				max = [e];
+				list = [e];
 			} else if (value == maxValue) {
-				max.push(e);
+				list.push(e);
 			}
 		}
-		return max;
+		return {list: list, value: maxValue};
 	}
 
 	public static function count<T>(a:Array<T>, f:T->Bool):Int {

@@ -39,12 +39,17 @@ class Day24 {
 		});
 	}
 
-	public static function simulateCombat(input:String):Int {
+	public static function simulateCombat(input:String, boost:Int = 0) {
 		var armies = parse(input);
 		var immuneSystem = armies[0];
 		var infection = armies[1];
 
+		for (group in immuneSystem) {
+			group.damage += boost;
+		}
+
 		while (immuneSystem.length > 0 && infection.length > 0) {
+			// target selection phase
 			var selectedTargets = new Map<Group, Group>();
 			immuneSystem.sort();
 			infection.sort();
@@ -52,11 +57,11 @@ class Day24 {
 			function selectTargets(attackers:Army, defenders:Army) {
 				var defendersLeft = defenders.copy();
 				for (attacker in attackers) {
-					var max:Army = defendersLeft.max(defender -> attacker.damageAgainst(defender));
-					if (max.length == 0) {
+					var max = defendersLeft.max(defender -> attacker.damageAgainst(defender));
+					if (max.value == 0 || max.list.length == 0) {
 						continue;
 					}
-					var defender = max.sort()[0];
+					var defender = (max.list : Army).sort()[0];
 					selectedTargets[attacker] = defender;
 					defendersLeft.remove(defender);
 				}
@@ -65,21 +70,42 @@ class Day24 {
 			selectTargets(infection, immuneSystem);
 			selectTargets(immuneSystem, infection);
 
+			// attack phase
+			var totalUnitsKilled = 0;
 			var groups = immuneSystem.concat(infection);
-			groups.sort((a, b) -> Reflect.compare(b.initiative, a.initiative));
+			groups.sort((a, b) -> b.initiative - a.initiative);
 			for (attacker in groups) {
 				var defender = selectedTargets[attacker];
 				if (attacker.alive && defender != null) {
-					attacker.attack(defender);
+					totalUnitsKilled += attacker.attack(defender);
 				}
 			}
 
+			if (totalUnitsKilled == 0) {
+				break; // no more progress, can't win
+			}
+
+			// cleanup
 			immuneSystem = immuneSystem.filter(group -> group.alive);
 			infection = infection.filter(group -> group.alive);
 		}
 		
 		var winner = if (infection.length == 0) immuneSystem else infection;
-		return winner.map(group -> group.units).sum();
+		return {
+			won: winner == immuneSystem,
+			unitsLeft: winner.map(group -> group.units).sum(),
+		};
+	}
+
+	public static function findMinimalBoost(input:String):Int {
+		var boost = 0;
+		while (true) {
+			var result = simulateCombat(input, boost);
+			if (result.won) {
+				return result.unitsLeft;
+			}
+			boost++;
+		}
 	}
 }
 
@@ -110,16 +136,17 @@ class Day24 {
 		return effectivePower * multiplier;
 	}
 
-	public function attack(defender:Group) {
+	public function attack(defender:Group):Int {
 		var damageDealt = damageAgainst(defender);
 		var unitsKilled = Std.int(damageDealt / defender.hitPoints);
 		defender.units -= unitsKilled;
+		return unitsKilled;
 	}
 
 	public function compareTo(group:Group):Int {
-		var i = Reflect.compare(effectivePower, group.effectivePower);
+		var i = effectivePower - group.effectivePower;
 		if (i == 0) {
-			i = Reflect.compare(this.initiative, group.initiative);
+			i = this.initiative - group.initiative;
 		}
 		return i;
 	}
@@ -131,7 +158,7 @@ private typedef GroupData = {
 	final hitPoints:Int;
 	final weaknesses:Array<DamageType>;
 	final immunities:Array<DamageType>;
-	final damage:Int;
+	var damage:Int;
 	final damageType:DamageType;
 	final initiative:Int;
 }

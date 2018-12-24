@@ -17,7 +17,7 @@ class Day23 {
 
 	public static function countBotsInBiggestRange(input:String):Int {
 		var bots = parse(input);
-		var biggestRadius = bots.max(bot -> bot.radius)[0];
+		var biggestRadius = bots.max(bot -> bot.radius).list[0];
 		return bots.count(bot -> biggestRadius.contains(bot.center));
 	}
 
@@ -30,7 +30,7 @@ class Day23 {
 			spheres.enqueue(new PrioritizedItem(sphere, overlaps));
 		}
 
-		var biggestRadius = bots.max(bot -> bot.radius)[0].radius;
+		var biggestRadius = bots.max(bot -> bot.radius).list[0].radius;
 		var initialSphere = new Sphere(new Point3D(0, 0, 0), biggestRadius);
 		enqueue(initialSphere);
 
