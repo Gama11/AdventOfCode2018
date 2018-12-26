@@ -250,11 +250,20 @@ class Tests implements ITest {
 	}
 	#end
 
+	@Ignored
 	function testDay24() {
 		Assert.equals(5216, Day24.simulateCombat(getData("day24-0")).unitsLeft);
 		Assert.equals(24318, Day24.simulateCombat(getData("day24-1")).unitsLeft);
 
 		Assert.equals(51, Day24.findMinimalBoost(getData("day24-0")));
 		Assert.equals(1083, Day24.findMinimalBoost(getData("day24-1")));
+	}
+
+	function testDay25() {
+		Assert.equals(2, Day25.countConstellations(getData("day25-0")));
+		Assert.equals(4, Day25.countConstellations(getData("day25-1")));
+		Assert.equals(3, Day25.countConstellations(getData("day25-2")));
+		Assert.equals(8, Day25.countConstellations(getData("day25-3")));
+		Assert.equals(425, Day25.countConstellations(getData("day25-4")));
 	}
 }
